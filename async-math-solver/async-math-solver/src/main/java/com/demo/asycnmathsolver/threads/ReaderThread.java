@@ -34,7 +34,10 @@ public class ReaderThread implements Runnable, IMathSolver {
 			new Thread(new WriterThread(outputFile, queue)).start();
 			while ((line = reader.readLine()) != null) {
 					String result = eval(line);
+					if(result != null){
 						queue.add(result);
+					}
+					
 			}
 			queue.add(END_OF_Q);
 
@@ -54,7 +57,7 @@ public class ReaderThread implements Runnable, IMathSolver {
 	
 	private String eval(String str){
 		try{
-			return engine.eval(str).toString();
+			return str + " = " + engine.eval(str).toString();
 		}catch(ScriptException e){
 			return str + " is not a valid expression ";
 		}
